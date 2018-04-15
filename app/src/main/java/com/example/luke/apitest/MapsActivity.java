@@ -95,6 +95,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             previousPoint.setLatitude(point.getLatitude());
             previousPoint.setLongitude(point.getLongitude());
             }
-           distanceTxt.setText("Distance: " + String.format("%.2f", sum) + "m");
+            String string = getString(R.string.text, sum);
+            distanceTxt.setText(string);
+           //distanceTxt.setText("Distance: " + String.format("%.2f", sum) + "m");
         }
      }
