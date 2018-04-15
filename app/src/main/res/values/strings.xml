@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">apiTest</string>
     <string name="title_activity_maps">Map</string>
+    <string name="distance">Distance: 0.00m</string>
+    <string name="clear">Clear line</string>
+    <string name="reset">Reset Camera</string>
+    <string name="text">Distance: %1$dm</string>
 </resources>

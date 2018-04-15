@@ -34,49 +34,56 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        //searches for the map and initialises
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        distanceTxt = (TextView) findViewById(R.id.textView1);
-        clearBtn = (Button) findViewById(R.id.button1);
-        resetBtn = (Button) findViewById(R.id.button2);
+
+        //initialising textview and buttons
+        distanceTxt = findViewById(R.id.textView1);
+        clearBtn = findViewById(R.id.button1);
+        resetBtn = findViewById(R.id.button2);
     }
 
+    //when the map is ready this code runs
     @Override
     public void onMapReady(final GoogleMap googleMap) {
         map = googleMap;
-        map.getUiSettings().setZoomControlsEnabled(true);
+        map.getUiSettings().setZoomControlsEnabled(true); //enable zoom controls on map
 
-        polyLine = googleMap.addPolyline(new PolylineOptions().add(UTS).width(6).color(Color.RED));
-        map.addMarker(new MarkerOptions().position(UTS).title("University of Technology Sydney"));
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(UTS, 18.0f));
-
+        polyLine = googleMap.addPolyline(new PolylineOptions().add(UTS).width(6).color(Color.RED)); //initialising polyline with first point
+        map.addMarker(new MarkerOptions().position(UTS).title("University of Technology Sydney")); //adds a map marker at specified position
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(UTS, 18.0f)); //sets initial camera position and boom
         googleMap.setOnMapClickListener(this);
+
+        //a listener for the "clear line" button
         clearBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                polyLine.remove();
-                polyLine = googleMap.addPolyline(new PolylineOptions().add(UTS).width(6).color(Color.RED));
-                calculateDistance(polyLine.getPoints());
+                polyLine.remove(); //removes all points from the line
+                polyLine = googleMap.addPolyline(new PolylineOptions().add(UTS).width(6).color(Color.RED)); //initialises the line again
+                calculateDistance(polyLine.getPoints()); //updates the distance
             }
         });
+        //a listener for the "reset" button
         resetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(UTS, 18.0f));
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(UTS, 18.0f)); //moves the camera to the starting position
             }
         });
     }
 
      @Override
      public void onMapClick(LatLng latLng) {
-            List<LatLng> newPath = polyLine.getPoints();
-            newPath.add(latLng);
-            polyLine.setPoints(newPath);
-            calculateDistance(polyLine.getPoints());
+            //When the user touches a point on the map that point is added to the line
+            List<LatLng> newPath = polyLine.getPoints(); //a list of the current points in the line
+            newPath.add(latLng); //adds a new point at the end of the list
+            polyLine.setPoints(newPath); //sets the line to the new path
+            calculateDistance(polyLine.getPoints()); //updates the distance of the line
         }
 
      private void calculateDistance(List<LatLng> points) {
+        //calculates the distance of the line in metres
         Location previousPoint = new Location("");
         Location point = new Location("");
         float sum = 0f;
@@ -92,7 +99,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             previousPoint.setLatitude(point.getLatitude());
             previousPoint.setLongitude(point.getLongitude());
             }
-            distanceTxt.setText("Distance: " + String.format("%.2f", sum) + "m");
+           // distanceTxt.setText((getString(R.string.text, sum)));
+           distanceTxt.setText("Distance: " + String.format("%.2f", sum) + "m");
         }
      }
 
