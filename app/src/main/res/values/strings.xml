@@ -4,5 +4,5 @@
     <string name="distance">Distance: 0.00m</string>
     <string name="clear">Clear line</string>
     <string name="reset">Reset Camera</string>
-    <string name="text">Distance: %1$f m</string>
+    <string name="text">Distance: %.2fm</string>
 </resources>
