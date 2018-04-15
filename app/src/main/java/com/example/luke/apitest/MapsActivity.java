@@ -1,6 +1,5 @@
 package com.example.luke.apitest;
 
-import android.Manifest;
 import android.graphics.Color;
 import android.location.Location;
 import android.support.v4.app.FragmentActivity;
@@ -19,7 +18,6 @@ import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.List;
-
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener {
     private GoogleMap map;
@@ -62,15 +60,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 polyLine.remove(); //removes all points from the line
                 polyLine = googleMap.addPolyline(new PolylineOptions().add(UTS).width(6).color(Color.RED)); //initialises the line again
                 calculateDistance(polyLine.getPoints()); //updates the distance
-            }
-        });
+            }});
         //a listener for the "reset" button
         resetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(UTS, 18.0f)); //moves the camera to the starting position
-            }
-        });
+            }});
     }
 
      @Override
@@ -99,8 +95,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             previousPoint.setLatitude(point.getLatitude());
             previousPoint.setLongitude(point.getLongitude());
             }
-           // distanceTxt.setText((getString(R.string.text, sum)));
            distanceTxt.setText("Distance: " + String.format("%.2f", sum) + "m");
         }
      }
-
