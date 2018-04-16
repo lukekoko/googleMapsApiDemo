@@ -82,7 +82,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //calculates the distance of the line in metres
         Location previousPoint = new Location("");
         Location point = new Location("");
-        float sum = 0f;
+        float sum = 0;
         for (int i=0; i<points.size(); ++i) {
             point.setLatitude(points.get(i).latitude);
             point.setLongitude(points.get(i).longitude);
